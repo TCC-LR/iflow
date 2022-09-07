@@ -1,0 +1,63 @@
+.body-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+}
+
+.inputs-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: #81b29a;
+  border-radius: 8px;
+  align-items: center;
+  margin-top: 25px;
+  border-bottom: 3px solid white;
+}
+
+.box-for-add-btn {
+  width: 100%;
+  height: 28px;
+  position: relative;
+}
+
+.box-for-add-btn button {
+  position: absolute;
+  right: 13px;
+}
+
+.new-requirement-container {
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  margin-top: 25px;
+  padding: 25px;
+}
+
+.inputs-title {
+  font-size: 25px;
+  font-family: Handlee;
+}
+
+.save-btn-container {
+  width: 100%;
+  height: 28px;
+  position: relative;
+}
+
+.fileName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 15px;
+  border-bottom: solid 1px white;
+  border-radius: 13px;
+  margin-top: 6px;
+}
+
+.fileName div {
+  padding-left: 8px;
+}

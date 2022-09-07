@@ -1,0 +1,27 @@
+.input-container {
+  width: 100%;
+  border: 1px solid #3d405b;
+  border-radius: 6px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  font-size: 22px;
+}
+
+.input-container * {
+  margin: 0 auto;
+}
+
+.input-css {
+  width: 97%;
+  background: transparent;
+}
+
+.input-css:disabled {
+  color: #f4f1de;
+}
+
+.input-css:not(:disabled) {
+  color: #3d405b;
+}

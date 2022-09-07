@@ -1,0 +1,38 @@
+.border-13px {
+  border-radius: 13px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.th-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin-top: 45px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #fff;
+}
+
+.th-name-container {
+  width: 60%;
+  min-width: 60%;
+  max-width: 60%;
+  padding-left: 25px;
+}
+
+.th-created-at-container {
+  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.th-who-container {
+  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
+}

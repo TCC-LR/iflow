@@ -1,0 +1,27 @@
+.search-input {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #fff;
+  font-size: 28px;
+  color: rgb(34, 34, 34);
+  font-family: Handlee;
+}
+
+.search-input *:first-child {
+  margin-right: 12px;
+
+  /* Inverter lupa pra ficar igual o protótipo */
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.search-input input {
+  width: 100%;
+  background: transparent;
+  color: #000;
+}

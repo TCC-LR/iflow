@@ -1,0 +1,36 @@
+.item-container {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: row;
+  color: black;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  margin-top: 25px;
+}
+
+.item-container:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.name-container {
+  width: 60%;
+  min-width: 60%;
+  max-width: 60%;
+}
+
+.created-at-container {
+  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.who-container {
+  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
+}

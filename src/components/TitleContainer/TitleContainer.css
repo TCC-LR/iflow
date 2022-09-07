@@ -1,0 +1,24 @@
+.title-container {
+  width: 100%;
+  font-family: Handlee;
+  display: flex;
+  flex-direction: row;
+  padding: 13px;
+  background: #81b29a;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  border-bottom: 3px solid white;
+  position: relative;
+}
+
+.title-container div {
+  padding-left: 8px;
+}
+
+.floating-title-description {
+  position: absolute;
+  right: 20px;
+  top: 13px;
+}

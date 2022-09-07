@@ -1,0 +1,34 @@
+.fileName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    border-bottom: solid 1px white;
+    border-radius: 13px;
+    margin-top: 6px;
+}
+
+.fileName div{
+    padding-left: 8px;
+}
+
+.image-container {
+    margin-top: 50px;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image-space {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin: 0 400px;
+}
+
+.image-space img{
+    max-width: 100%;
+}

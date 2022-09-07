@@ -1,0 +1,19 @@
+.centralize-items {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.start-items {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}

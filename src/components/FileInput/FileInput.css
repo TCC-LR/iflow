@@ -1,0 +1,50 @@
+.inputContainer {
+  text-align: center;
+  padding: 3%;
+  border: thin solid #3d405b;
+  width: 100%;
+  border-radius: 13px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #3d405b;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.inputContainer input {
+  display: none;
+}
+
+.labelInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#imageName {
+  color: green;
+}
+
+.corner-title {
+  position: absolute;
+  left: 20px;
+  top: 13px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.corner-title div {
+  padding-left: 8px;
+}
+
+.drop-zone-over {
+  border: solid solid #ffffff !important;
+  color: #f3f3f3 !important;
+}

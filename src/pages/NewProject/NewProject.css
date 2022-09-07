@@ -1,0 +1,35 @@
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff !important;
+  opacity: 0.6 !important; /* Firefox */
+}
+
+.border-css {
+  border: 1px solid rgba(62, 64, 91, 1);
+  border-radius: 11px;
+  padding: 13px 13px;
+  color: rgba(62, 64, 91, 1);
+  margin-top: 25px;
+}
+
+.border-css input,
+.border-css textarea {
+  background: transparent;
+  color: white;
+  width: 100%;
+}
+
+.align-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btns-container {
+  float: right;
+  margin-top: 25px;
+}
+
+.btns-container button:first-child {
+  margin-right: 25px;
+}

@@ -1,0 +1,51 @@
+.user-story-search-input {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 13px;
+  border: 1px solid #3d405b;
+  padding: 0 13px;
+  font-size: 28px;
+  color: #3d405b;
+  font-family: Handlee;
+}
+
+.user-story-search-input *:first-child {
+  margin-right: 12px;
+
+  /* Inverter lupa pra ficar igual o protótipo */
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.user-story-search-input input {
+  width: 100%;
+  background: transparent;
+  color: #3d405b;
+}
+
+.user-story-card {
+  width: 350px;
+  height: 80px;
+  border: 1px solid #3d405b;
+  border-radius: 10px;
+  padding: 5px 15px;
+  color: #3d405b;
+  background: #81b29a;
+  cursor: move;
+  transition: all 0.13s;
+}
+
+.user-story-card div:nth-child(2) {
+  text-align: center;
+}
+
+.dropped-user-story {
+  opacity: 0.3 !important;
+  rotate: rotate(0deg) !important;
+  cursor: default !important;
+}

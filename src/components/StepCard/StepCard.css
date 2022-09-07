@@ -1,0 +1,22 @@
+.card-container {
+  min-width: 240px;
+  max-width: 240px;
+  height: 345px;
+  border-radius: 10px;
+  border-bottom: 4px solid white;
+  margin: 0 15px;
+  background: rgba(129, 178, 154, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s;
+  font-size: 24px;
+  font-family: Handlee;
+}
+
+.card-container:hover {
+  margin-bottom: 15px;
+  background: rgba(129, 178, 154, 0.8);
+}
