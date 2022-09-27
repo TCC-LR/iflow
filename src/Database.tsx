@@ -1,3 +1,5 @@
+import { baseUrl } from './Config'
+
 export interface IRequirementItem {
   id: number
   name: string
@@ -25,6 +27,7 @@ export interface IEpic {
 interface IArtifactSteps {
   id: number
   name: string
+  key: string
 
   /** 5W2H */
   what?: string
@@ -52,19 +55,63 @@ interface IArtifactSteps {
 interface IStep {
   id: number
   name: string
+  key: string
   hasArtifacts: Boolean
   artifactSteps: IArtifactSteps[]
+  verifications?: IVerification[]
+}
+export interface IVerification {
+  id: number
+  step_id: number
+  artifact_id: number
+  checkboxes: ICheckbox[]
+}
+
+export enum result_types {
+  Boolean,
+  Text,
+  Number,
+}
+export interface ICheckbox {
+  id: number
+  result: string
+  criteria: string
+  result_type: result_types
+}
+
+export const FILETYPES = {
+  '5W2H': ['text', 'artifact.json'],
+  'Rich Picture': ['image', 'artifact.png'],
+  'Análise de Protocolo': ['audio', 'artifact.mp3'],
+  Brainstorming: ['text', 'artifact.json'],
+  Questionário: ['text', 'artifact.json'],
+  'Protótipo de Baixa Fidelidade': ['image', 'artifact.png'],
+  Storytelling: ['text', 'artifact.json'],
+  Entrevista: ['text', 'artifact.json'],
+  Backlog: ['text', 'artifact.json'],
+  NFR: ['text', 'artifact.json'],
+  Léxicos: ['text', 'artifact.json'],
+  'House of Quality': ['text', 'artifact.json'],
+}
+
+export enum artifact_types {
+  pre_traceability_portugues = 'Pré-rastreabilidade',
+  pre_traceability_english = 'pre-traceability',
+  elicitation_portugues = 'Elicitação',
+  elicitation_english = 'elicitation',
 }
 
 export const globalSteps: IStep[] = [
   {
     id: 1,
     name: 'Pré-rastreabilidade',
+    key: 'pre-traceability',
     hasArtifacts: true,
     artifactSteps: [
       {
         id: 1,
         name: '5W2H',
+        key: '5W2H',
         what: '',
         why: '',
         where: '',
@@ -80,23 +127,26 @@ export const globalSteps: IStep[] = [
       {
         id: 2,
         name: 'Rich Picture',
+        key: 'Rich Picture',
         fileUrl: '/src/public/images/rich_picture.jpg',
         filename: 'rich_picture.jpg',
         iconType: 'image',
         inputType: 'image',
         hasRequirementsElicitation: false,
-        done: true,
+        done: false,
       },
     ],
   },
   {
     id: 2,
     name: 'Elicitação',
+    key: 'elicitation',
     hasArtifacts: false,
     artifactSteps: [
       {
         id: 1,
         name: 'Brainstorming',
+        key: 'Brainstorming',
         description:
           'Testando descrição do brainstorming e bla bla bla bla bla',
         iconType: 'text',
@@ -105,7 +155,7 @@ export const globalSteps: IStep[] = [
         requirements: [
           {
             id: 1,
-            name: 'Cadastro Usuário',
+            name: 'RF 1',
             functional: 'true',
             what: 'Cadastrar usuário',
             who: 'Usuário',
@@ -117,6 +167,7 @@ export const globalSteps: IStep[] = [
       {
         id: 2,
         name: 'Questionário',
+        key: 'Questionário',
         iconType: 'audio',
         inputType: 'text',
         description: '',
@@ -126,7 +177,8 @@ export const globalSteps: IStep[] = [
       },
       {
         id: 3,
-        name: 'Protótipo de baixa qualidade',
+        name: 'Protótipo de Baixa Fidelidade',
+        key: 'Protótipo de Baixa Fidelidade',
         iconType: 'image',
         inputType: 'image',
         fileUrl: '/src/public/images/rich_picture.jpg',
@@ -135,14 +187,6 @@ export const globalSteps: IStep[] = [
         requirements: [
           {
             id: 2,
-            name: 'Login do Usuário',
-            functional: 'true',
-            what: 'Realizar login usuário',
-            who: 'Usuário',
-            why: 'Para acessar o app',
-          },
-          {
-            id: 3,
             name: 'RF 2',
             functional: 'true',
             what: 'Realizar login usuário',
@@ -150,7 +194,7 @@ export const globalSteps: IStep[] = [
             why: 'Para acessar o app',
           },
           {
-            id: 4,
+            id: 3,
             name: 'RF 3',
             functional: 'true',
             what: 'Realizar login usuário',
@@ -158,7 +202,7 @@ export const globalSteps: IStep[] = [
             why: 'Para acessar o app',
           },
           {
-            id: 5,
+            id: 4,
             name: 'RF 4',
             functional: 'true',
             what: 'Realizar login usuário',
@@ -166,8 +210,32 @@ export const globalSteps: IStep[] = [
             why: 'Para acessar o app',
           },
           {
+            id: 5,
+            name: 'RF 5',
+            functional: 'true',
+            what: 'Realizar login usuário',
+            who: 'Usuário',
+            why: 'Para acessar o app',
+          },
+          {
             id: 6,
-            name: 'RNF 4',
+            name: 'RNF 6',
+            functional: 'false',
+            what: 'Realizar login usuário',
+            who: 'Usuário',
+            why: 'Para acessar o app',
+          },
+          {
+            id: 7,
+            name: 'RNF 7',
+            functional: 'false',
+            what: 'Realizar login usuário',
+            who: 'Usuário',
+            why: 'Para acessar o app',
+          },
+          {
+            id: 8,
+            name: 'RNF 8',
             functional: 'false',
             what: 'Realizar login usuário',
             who: 'Usuário',
@@ -179,6 +247,7 @@ export const globalSteps: IStep[] = [
       {
         id: 4,
         name: 'Storytelling',
+        key: 'Storytelling',
         iconType: 'text',
         inputType: 'text',
         description: '',
@@ -189,7 +258,8 @@ export const globalSteps: IStep[] = [
       {
         id: 5,
         name: 'Entrevista',
-        iconType: 'audio',
+        key: 'Entrevista',
+        iconType: 'text',
         inputType: 'text',
         description: '',
         hasRequirementsElicitation: true,
@@ -198,7 +268,8 @@ export const globalSteps: IStep[] = [
       },
       {
         id: 6,
-        name: 'Análise de protocolo',
+        name: 'Análise de Protocolo',
+        key: 'Análise de Protocolo',
         iconType: 'audio',
         inputType: 'audio',
         fileUrl: '/src/public/audios/Happy_wavy.mp3',
@@ -212,11 +283,13 @@ export const globalSteps: IStep[] = [
   {
     id: 3,
     name: 'Modelagem',
+    key: 'elicitation',
     hasArtifacts: false,
     artifactSteps: [
       {
         id: 1,
         name: 'Backlog',
+        key: 'Backlog',
         inputType: 'Backlog',
         hasRequirementsElicitation: false,
         epics: [
@@ -231,7 +304,7 @@ export const globalSteps: IStep[] = [
                 userStories: [
                   {
                     id: 2,
-                    name: 'Login do Usuário',
+                    name: 'RF 1',
                     functional: 'true',
                     what: 'Realizar login usuário',
                     who: 'Usuário',
@@ -274,6 +347,30 @@ export const globalSteps: IStep[] = [
                     who: 'Usuário',
                     why: 'Para acessar o app',
                   },
+                  {
+                    id: 6,
+                    name: 'RF 5',
+                    functional: 'true',
+                    what: 'Realizar login usuário',
+                    who: 'Usuário',
+                    why: 'Para acessar o app',
+                  },
+                  {
+                    id: 7,
+                    name: 'RF 6',
+                    functional: 'true',
+                    what: 'Realizar login usuário',
+                    who: 'Usuário',
+                    why: 'Para acessar o app',
+                  },
+                  {
+                    id: 8,
+                    name: 'RF 7',
+                    functional: 'true',
+                    what: 'Realizar login usuário',
+                    who: 'Usuário',
+                    why: 'Para acessar o app',
+                  },
                 ],
               },
             ],
@@ -284,12 +381,15 @@ export const globalSteps: IStep[] = [
       {
         id: 2,
         name: 'NFR',
+        key: 'NFR',
+        inputType: 'NFR',
         hasRequirementsElicitation: false,
         done: false,
       },
       {
         id: 3,
         name: 'Léxicos',
+        key: 'Léxicos',
         inputType: 'Lexicon',
         hasRequirementsElicitation: false,
         lexicons: [
@@ -308,17 +408,21 @@ export const globalSteps: IStep[] = [
   {
     id: 4,
     name: 'Verificação',
+    key: 'verification',
     hasArtifacts: false,
     artifactSteps: [],
+    verifications: [],
   },
   {
     id: 5,
     name: 'House of Quality',
+    key: 'elicitation',
     hasArtifacts: false,
     artifactSteps: [
       {
         id: 1,
         name: 'House of Quality',
+        key: 'House of Quality',
         inputType: 'House of Quality',
         hasRequirementsElicitation: false,
         done: false,
@@ -339,6 +443,19 @@ export function GetArtifacts(stepId: number) {
   })[0]
 
   return step.artifactSteps
+}
+
+export function GetFinishedArtifacts() {
+  const steps = GetSteps()
+  const artifacts: any = []
+
+  steps.map((step) => {
+    step.artifactSteps.map((artifact) => {
+      if (artifact.done) artifacts.push(artifact)
+    })
+  })
+
+  return artifacts
 }
 
 export function GetArtifact(stepId: number, artifactId: number) {

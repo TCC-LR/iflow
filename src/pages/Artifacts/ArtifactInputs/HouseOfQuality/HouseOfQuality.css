@@ -1,0 +1,36 @@
+.minimized_requirement_card {
+  padding: 3px 3px;
+  border: 1px solid #3d405b;
+  border-radius: 6px;
+  width: 200px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.minimized_requirement_card-done {
+  padding: 3px 3px;
+  border: 1px solid #f4f1de;
+  border-radius: 6px;
+  width: 200px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .minimized_requirement_card-done span {
+  text-align: center;
+  vertical-align: middle;
+  color: #f4f1de;
+  margin-top: 10px;
+} */

@@ -8,13 +8,31 @@ import { useEffect, useState } from 'react'
 import { IProject } from './IProject'
 import { Link } from 'react-router-dom'
 
-import { GetProjects } from '../../Database'
+import { baseUrl } from '../../Config'
 
 export function ProjectList() {
   const [projects, setProjects] = useState<IProject[]>([])
+  const userName = localStorage.getItem('user_name')?.toString()
+  const userToken = localStorage.getItem('user_token')
 
   useEffect(() => {
-    setProjects(GetProjects())
+    fetch(`${baseUrl}/user/projects`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + userToken,
+      },
+    })
+      .then((response) => {
+        return response.json().then((data) => {
+          console.log(data)
+          setProjects(data)
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
 
   return (
@@ -33,7 +51,7 @@ export function ProjectList() {
           </div>
           <div className="th-container">
             <div className="th-name-container">Nome</div>
-            <div className="th-created-at-container">Criado em</div>
+            <div className="th-created-at-container">Objetivo</div>
             <div className="th-who-container">Responsável</div>
           </div>
           <div
@@ -42,10 +60,10 @@ export function ProjectList() {
             {projects.map((project) => {
               return (
                 <ProjectItem
-                  key={project.name}
+                  project_id={project.project_id}
                   name={project.name}
-                  created_at={project.created_at}
-                  who={project.who}
+                  objective={project.objective}
+                  who={userName}
                 />
               )
             })}

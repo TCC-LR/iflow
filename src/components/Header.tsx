@@ -10,6 +10,7 @@ interface IHeader {
   backUrl?: string
   backTitle?: string
   hasAddButton?: Boolean
+  clickButtonHandler: any
   addButtonTitle?: string
   addButtonUrl?: string
 }
@@ -31,7 +32,7 @@ export function Header(props: IHeader) {
       </span>
       {props.hasAddButton ? (
         <Link to={props.addButtonUrl} className="addBtnOnHeader">
-          <AddButton text={props.addButtonTitle} />
+          <AddButton text={props.addButtonTitle} onClick={props.clickButtonHandler} />
         </Link>
       ) : (
         ''

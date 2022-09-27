@@ -1,8 +1,45 @@
 import { Header } from '../components/Header'
 import { LockSimple } from 'phosphor-react'
 import { Link } from 'react-router-dom'
+import { baseUrl } from '../Config'
 
 export function Register() {
+  function handleCreateAccount() {
+    const name = (document.getElementById('register-name') as HTMLInputElement)
+      .value
+    const email = (
+      document.getElementById('register-email') as HTMLInputElement
+    ).value
+    const password = (
+      document.getElementById('register-password') as HTMLInputElement
+    ).value
+
+    const data = JSON.stringify({
+      name,
+      email,
+      password,
+    })
+    fetch(`${baseUrl}/user`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: data,
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          window.location.href = '/login'
+        } else {
+          alert('Senhas não conferem')
+        }
+      })
+      .catch((err) => {
+        alert('Senhas não conferem')
+        console.log(err)
+      })
+  }
+
   return (
     <div>
       <Header hasTitle={false} />
@@ -17,6 +54,7 @@ export function Register() {
                 <LockSimple size={23} />
               </span>
               <input
+                id="register-name"
                 className="px-10 text-[22px] font-white placeholder-white-200 font-sans border border-blue-400 rounded w-[690px] h-[67px] bg-transparent focus:outline-none"
                 type="text"
                 placeholder="Nome"
@@ -29,6 +67,7 @@ export function Register() {
                 <LockSimple size={23} />
               </span>
               <input
+                id="register-email"
                 className="px-10 text-[22px] font-white placeholder-white-200 font-sans border border-blue-400 rounded w-[690px] h-[67px] bg-transparent focus:outline-none"
                 type="text"
                 placeholder="Email"
@@ -42,6 +81,7 @@ export function Register() {
                   <LockSimple size={23} />
                 </span>
                 <input
+                  id="register-password"
                   className="px-10 text-[22px] font-white placeholder-white-200 font-sans border border-blue-400 rounded w-[340px] h-[67px] bg-transparent focus:outline-none"
                   type="password"
                   placeholder="Senha"
@@ -69,11 +109,15 @@ export function Register() {
                 Voltar
               </button>
             </Link>
-            <Link to="/projects">
-              <button className="border border-blue-400 w-[186px] h-[61px] bg-blue-400 rounded-lg text-[24px] text-white-200">
-                Cadastrar
-              </button>
-            </Link>
+            {/* <Link to="/projects"> */}
+            <button
+              type="submit"
+              className="border border-blue-400 w-[186px] h-[61px] bg-blue-400 rounded-lg text-[24px] text-white-200"
+              onClick={handleCreateAccount}
+            >
+              Cadastrar
+            </button>
+            {/* </Link> */}
           </div>
         </div>
       </div>

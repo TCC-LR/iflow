@@ -1,0 +1,41 @@
+.container-text-select {
+    border: 1px solid #3D405B;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    padding: 8px 9px;
+}
+
+.input-text-nfr {
+    background: transparent;
+    height: 35px;
+    border-bottom: 1px solid #3d405b4f;
+    color: #3D405B
+}
+
+.select-nfr {
+    margin: 0 10px;
+    border: 1px solid #3D405B;
+    border-radius: 8px;
+    background: transparent;
+    padding: 8px 9px;
+    color: #3D405B;
+    width: 100%
+}
+
+.info-container {
+    margin: 0 10px;
+    border: 1px solid #3D405B;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #3d405b2a;
+    padding: 8px 9px;
+    color: #3D405B;
+    width: 100%
+}
+
+.info-container div {
+    margin-left: 10px !important;
+}

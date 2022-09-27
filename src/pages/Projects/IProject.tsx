@@ -1,5 +1,6 @@
 export interface IProject {
+  project_id: string
   name: string
-  created_at: string
+  objective: string
   who: string
 }

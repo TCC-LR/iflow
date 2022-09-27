@@ -6,6 +6,7 @@ interface IFileInput {
   cornerTitle?: string
   cornerTitleIcon?: any
   acceptFileTypes: string
+  onChangeHandler: any
 }
 
 export function FileInput(props: IFileInput) {
@@ -61,7 +62,13 @@ export function FileInput(props: IFileInput) {
       <div className="labelInput">
         <CloudArrowDown size={100} />
         <div>{fileName}</div>
-        <input id="inputTag" type="file" accept={props.acceptFileTypes} />
+        <input
+          id="inputTag"
+          type="file"
+          name="file-name"
+          accept={props.acceptFileTypes}
+          onChange={props.onChangeHandler}
+        />
         <span id="imageName"></span>
       </div>
     </div>

@@ -1,5 +1,7 @@
 import { Question, RedditLogo } from 'phosphor-react'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { baseUrl } from '../../Config'
 import { IRequirementItem } from '../../Database'
 import { AddButton } from '../AddButton/AddButton'
 import { Input } from '../Input/Input'
@@ -11,22 +13,21 @@ export function RequirementsList(props: any) {
   const [idAuxiliar, setIdAuxiliar] = useState(0)
   const [addRequirementButton, setAddRequirementButton] = useState(false)
   const [addRequirementContainer, setAddRequirementContainer] = useState(<></>)
-  // setRequirements(["1", "2"]);
 
+  const { project_id, artifactId } = useParams()
+
+  // setRequirements(["1", "2"]);
   useEffect(() => {
     setAddRequirementButton(false)
   }, [])
-
   useEffect(() => {
     let i = 0
     const newIdOrder = requirements.map((obj) => {
       i++
       return { ...obj, id: i }
     })
-
     setRequirements(newIdOrder)
-  }, requirements)
-
+  }, [])
   const buttonClickHandler = () => {
     setAddRequirementButton(!addRequirementButton)
     if (addRequirementButton) {
@@ -82,6 +83,33 @@ export function RequirementsList(props: any) {
       )
     }
   }
+  useEffect(() => {
+    fetch(`${baseUrl}/functional/?${project_id}/${artifactId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user_token')}`,
+      },
+      mode: 'cors',
+    }).then((response) => {
+      return response.json().then((data) => {
+        console.log(data)
+      })
+    })
+  })
+
+  useEffect(() => {
+    fetch(`${baseUrl}/non-functional/?${project_id}/${artifactId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user_token')}`,
+      },
+      mode: 'cors',
+    }).then((response) => {
+      return response.json().then((data) => {
+        console.log(data)
+      })
+    })
+  })
 
   const saveRequirementHandler = () => {
     const nameInput = (
@@ -101,58 +129,103 @@ export function RequirementsList(props: any) {
         'input[name="requirement-type"]:checked',
       ) as HTMLInputElement
     )?.value
-
     console.log(
       'Radio inputs',
       document.querySelector('input[name="requirement-type"]:checked'),
     )
-
-    setIdAuxiliar(requirements.length + 1)
-
-    const helper = {
-      id: idAuxiliar,
+    const requirementData = JSON.stringify({
       name: nameInput,
-      functional: functionalInput,
       who: whoInput,
       what: whatInput,
       why: whyInput,
-    }
-    console.log('Requirements helper', helper)
-
-    setRequirements([...requirements, helper])
-    setAddRequirementButton(false)
-    setAddRequirementContainer(<></>)
+      project_id,
+      artifact_id: artifactId,
+    })
+    fetch(
+      `${baseUrl}/${
+        functionalInput === 'true' ? 'functional' : 'non-functional'
+      }`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('user_token')}`,
+        },
+        body: requirementData,
+      },
+    ).then((response) => {
+      return response
+        .json()
+        .then((data) => {
+          console.log(data)
+          setIdAuxiliar(requirements.length + 1)
+          const helper = {
+            id: idAuxiliar,
+            name: nameInput,
+            functional: functionalInput,
+            who: whoInput,
+            what: whatInput,
+            why: whyInput,
+          }
+          console.log('Requirements helper', helper)
+          setRequirements([...requirements, helper])
+          setAddRequirementButton(false)
+          setAddRequirementContainer(<></>)
+        })
+        .catch((err) => {
+          alert('Algo deu errado ao salvar requisito!')
+          console.log(err)
+        })
+    })
   }
-
   return (
-    <div className="inputs-container">
-      {props.artifact.done ? (
-        <div className="inputs-title">Lista de Requisitos</div>
-      ) : (
-        <>
-          <div className="box-for-add-btn">
-            <AddButton
-              textId="add-requirement-btn-text"
-              text={addRequirementButton ? 'Cancelar' : 'Adicionar Requisito'}
-              onClick={buttonClickHandler}
-            />
-          </div>
-
-          {addRequirementContainer}
-        </>
-      )}
-      <div
-        style={{
-          width: '100%',
-          overflowY: 'auto',
-          maxHeight: '400px',
-          marginTop: '50px',
-        }}
-      >
+    <>
+      <div className="inputs-container">
+        {props.artifact.done ? (
+          <div className="inputs-title">Lista de Requisitos</div>
+        ) : (
+          <>
+            <div className="box-for-add-btn">
+              <AddButton
+                textId="add-requirement-btn-text"
+                text={addRequirementButton ? 'Cancelar' : 'Adicionar Requisito'}
+                onClick={buttonClickHandler}
+              />
+            </div>
+            {addRequirementContainer}
+          </>
+        )}
         {requirements.length > 0 ? (
-          requirements.map((requirement: IRequirementItem) => {
+          <></>
+        ) : (
+          <div
+            style={{
+              width: '100%',
+              overflowY: 'auto',
+              maxHeight: '400px',
+              marginTop: '50px',
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+              }}
+            >
+              Nenhum requisito foi cadastrado.
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="flex flex-row flex-wrap gap-3 w-full mt-5">
+        {requirements.map((requirement: IRequirementItem, index) => {
+          if (index % 2 === 0 && index !== 0) {
             return (
               <>
+                <div className="break"></div>
                 <RequirementItem
                   onlyShow={props.artifact.done}
                   requirement={requirement}
@@ -160,20 +233,17 @@ export function RequirementsList(props: any) {
                 />
               </>
             )
-          })
-        ) : (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center',
-            }}
-          >
-            Nenhum requisito foi cadastrado.
-          </div>
-        )}
+          } else {
+            return (
+              <RequirementItem
+                onlyShow={props.artifact.done}
+                requirement={requirement}
+                requirementsState={props.requirementsState}
+              />
+            )
+          }
+        })}
       </div>
-    </div>
+    </>
   )
 }

@@ -10,6 +10,8 @@ import { StepList } from './pages/Steps/StepList'
 import { ArtifactsList } from './pages/Artifacts/ArtifactsList'
 import { NewArtifact } from './pages/Artifacts/NewArtifact'
 import { Artifact } from './pages/Artifacts/Artifact'
+import { VerificationArtifactsList } from './pages/Verification/VerificationArtifactsList'
+import { MVP } from './pages/MVP/MVP'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -30,6 +32,18 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Route
         path="project/:project_id/step/:stepId/artifact/:artifactId"
         element={<Artifact />}
+      />
+      <Route
+        path="project/:project_id/step/:stepId/verification"
+        element={<VerificationArtifactsList />}
+      />
+      <Route
+        path="project/:project_id/step/:stepId/verification/new"
+        element={<NewArtifact />}
+      />
+      <Route
+        path="project/:project_id/mvp"
+        element={<MVP />}
       />
       <Route
         path="*"

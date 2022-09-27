@@ -12,15 +12,15 @@ export interface ILexiconItem {
 
 export function LexiconItem(props: any) {
   console.log('Props', props)
-  const [lexicons, setLexicons] = props.lexiconState
+  // const [lexicons, setLexicons] = props.lexiconState
 
-  const deleteLexiconHandler = () => {
-    const helper = lexicons.filter(function (lexicon: ILexiconItem) {
-      return lexicon.id !== props.lexicon?.id
-    })
+  // const deleteLexiconHandler = () => {
+  //   const helper = lexicons.filter(function (lexicon: ILexiconItem) {
+  //     return lexicon.id !== props.lexicon?.id
+  //   })
 
-    setLexicons(helper)
-  }
+  //   setLexicons(helper)
+  // }
 
   if (props.lexicon) {
     return (
@@ -55,16 +55,7 @@ export function LexiconItem(props: any) {
             </div>
           </div>
         </div>
-        {props.onlyShow ? (
-          ''
-        ) : (
-          <div
-            className="requirement-delete-box"
-            onClick={deleteLexiconHandler}
-          >
-            <Trash size={25} />
-          </div>
-        )}
+        {props.onlyShow ? '' : <></>}
       </div>
     )
   } else {

@@ -1,8 +1,50 @@
 import { Header } from '../components/Header'
 import { Envelope, LockSimple } from 'phosphor-react'
 import { Link } from 'react-router-dom'
+import { baseUrl } from '../Config'
+import { useState } from 'react'
 
 export function HomePage() {
+  const [errorMessage, setErrorMessage] = useState('')
+
+  function handleLogin() {
+    localStorage.clear()
+    const email = (document.getElementById('email') as HTMLInputElement).value
+    const password = (document.getElementById('password') as HTMLInputElement)
+      .value
+
+    const data = JSON.stringify({
+      email,
+      password,
+    })
+
+    fetch(`${baseUrl}/session`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: data,
+    })
+      .then((response) => {
+        return response.json().then((data) => {
+          console.log('Data', data)
+          if (data.token) {
+            localStorage.setItem('user_id', data.user.user_id)
+            localStorage.setItem('user_name', data.user.name)
+            localStorage.setItem('user_email', data.user.email)
+            localStorage.setItem('user_token', data.token)
+            window.location.href = '/projects'
+          } else if (data.message) {
+            setErrorMessage(data.message)
+          }
+        })
+      })
+      .catch((err) => {
+        alert('Deu erro')
+        console.log(err)
+      })
+  }
   return (
     <div>
       <Header hasTitle={false} />
@@ -98,6 +140,13 @@ export function HomePage() {
           <p className="text-white-200 font-[Handlee] text-center w-full text-[22px] mt-[21px] font-light">
             Por favor entre com seu login e senha!
           </p>
+          {errorMessage != '' ? (
+            <p className="text-red-200 font-[Handlee] text-center w-full text-[22px] mt-[21px] font-light">
+              {errorMessage}
+            </p>
+          ) : (
+            <></>
+          )}
           <div className="flex items-center justify-center text-center w-full mt-[58px]">
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-2 mt-9">
@@ -107,6 +156,7 @@ export function HomePage() {
                 Email
               </label>
               <input
+                id="email"
                 className="px-10 text-[22px] font-white placeholder-white-200 font-[Handlee] border border-blue-400 rounded w-[463px] h-[67px] bg-transparent focus:outline-none"
                 type="text"
                 placeholder="E-mail"
@@ -122,27 +172,25 @@ export function HomePage() {
                 Senha
               </label>
               <input
+                id="password"
                 className="px-10 text-[22px] font-white placeholder-white-200 font-[Handlee] border border-blue-400 rounded w-[463px] h-[67px] bg-transparent focus:outline-none"
                 type="password"
                 placeholder="Senha"
               ></input>
             </div>
           </div>
-          <a
-            href="#"
-            className="block font-sans text-center text-blue-400 mt-[46px]"
-          >
-            Esqueceu a senha?
-          </a>
           <div className="text-center mt-[60px] w-full">
-            <Link to="/projects">
-              <button className="border border-blue-400 w-[186px] h-[61px] bg-blue-400 rounded-lg text-[24px] text-white-200">
-                Login
-              </button>
-            </Link>
+            {/* <Link to="/projects"> */}
+            <button
+              onClick={handleLogin}
+              className="border border-blue-400 w-[186px] h-[61px] bg-blue-400 rounded-lg text-[24px] text-white-200"
+            >
+              Login
+            </button>
+            {/* </Link> */}
           </div>
           <div className="text-center mt-[50px] w-full">
-            <span className="text-blue-400">Ainda não possui conta?</span>
+            <span className="text-blue-400">Ainda não possui conta? </span>
             <Link to="/register">Registre-se</Link>
           </div>
         </div>

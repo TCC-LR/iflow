@@ -8,6 +8,8 @@ interface IInput {
   placeholder: string
   disabled?: Boolean
   value?: string
+  onChangeHandler?: any
+  name?: string
 }
 
 export function Input(props: IInput) {
@@ -20,7 +22,10 @@ export function Input(props: IInput) {
           className="input-css "
           disabled={!!props.disabled}
           style={{ height: props.height }}
+          onChange={props.onChangeHandler}
           placeholder={props.placeholder}
+          name={props.name}
+          value={props.value}
         >
           {props.value}
         </textarea>
@@ -36,8 +41,11 @@ export function Input(props: IInput) {
           id={props.id}
           className="input-css ml-[13px]"
           placeholder={props.placeholder}
+          style={{ height: props.height }}
+          onChange={props.onChangeHandler}
           disabled={!!props.disabled}
           value={props.value}
+          name={props.name}
         />
       </div>
     </>

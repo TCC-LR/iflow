@@ -12,7 +12,7 @@ export function NewArtifact() {
   const steps = GetSteps()
   const artifacts = GetArtifacts(parseInt(stepId))
   console.log('Artifacts', artifacts)
-  if (artifacts.length == 0) {
+  if (artifacts.length === 0) {
     return (
       <>
         <Header
@@ -43,46 +43,36 @@ export function NewArtifact() {
         }
       >
         {artifacts.map((artifact) => {
-          if (artifact.id < 6) {
-            return (
-              <Link
-                to={
-                  '/project/1/step/' +
-                  stepId +
-                  '/artifact/' +
-                  artifact.id.toString()
-                }
-              >
-                <StepCard
-                  key={artifact.id}
-                  active={true}
-                  textColorActive={false}
-                  name={artifact.name}
-                />
-              </Link>
-            )
-          } else {
-            return (
-              <Link
-                to={
-                  '/project/1/step/' +
-                  stepId +
-                  '/artifact/' +
-                  artifact.id.toString()
-                }
-                style={{ marginTop: '25px' }}
-              >
-                <StepCard
-                  key={artifact.id}
-                  active={true}
-                  textColorActive={false}
-                  name={artifact.name}
-                />
-              </Link>
-            )
-          }
+          return (
+            <StepCard
+              key={artifact.id}
+              active={true}
+              textColorActive={false}
+              name={artifact.name}
+              keyName={artifact.key}
+              hasLink={true}
+            />
+          )
         })}
       </div>
     </div>
   )
+}
+
+{
+  /* <Link
+      to={
+        '/project/1/step/' +
+        stepId +
+        '/artifact/' +
+        artifact.id.toString()
+      }
+    >
+      <StepCard
+        key={artifact.id}
+        active={true}
+        textColorActive={false}
+        name={artifact.name}
+      />
+    </Link> */
 }

@@ -6,7 +6,8 @@ import { ILexiconItem, LexiconItem } from './LexiconItem'
 import './LexiconsList.css'
 
 export function LexiconsList(props: any) {
-  const [lexicons, setLexicons] = props.lexiconState
+  const artifact = props.artifact
+  const [lexicons, setLexicons] = useState([])
   const [idAuxiliar, setIdAuxiliar] = useState(0)
   const [addLexiconButton, setAddLexiconButton] = useState(false)
   const [addLexiconContainer, setAddLexiconContainer] = useState(<></>)
@@ -16,15 +17,15 @@ export function LexiconsList(props: any) {
     setAddLexiconButton(false)
   }, [])
 
-  useEffect(() => {
-    let i = 0
-    const newIdOrder = lexicons.map((obj) => {
-      i++
-      return { ...obj, id: i }
-    })
+  // useEffect(() => {
+  //   let i = 0
+  //   const newIdOrder = lexicons.map((obj) => {
+  //     i++
+  //     return { ...obj, id: i }
+  //   })
 
-    setLexicons(newIdOrder)
-  }, lexicons)
+  //   setLexicons(newIdOrder)
+  // }, lexicons)
 
   const buttonClickHandler = () => {
     setAddLexiconButton(!addLexiconButton)
@@ -74,42 +75,46 @@ export function LexiconsList(props: any) {
   }
 
   const saveLexiconHandler = () => {
-    const nameInput = (
+    const lexiconName = (
       document.getElementById('lexicon-name') as HTMLInputElement
     ).value
-    const whoInput = (
+    const lexiconSynonym = (
       document.getElementById('lexicon-who') as HTMLInputElement
     ).value
-    const whatInput = (
+    const lexiconNotion = (
       document.getElementById('lexicon-what') as HTMLInputElement
     ).value
-    const whyInput = (
+    const lexiconImpact = (
       document.getElementById('lexicon-why') as HTMLInputElement
     ).value
-    const functionalInput = (
+    const lexiconType = (
       document.querySelector(
-        'input[name="requirement-type"]:checked',
+        'input[name="lexicon-type"]:checked',
       ) as HTMLInputElement
     )?.value
 
     console.log(
       'Radio inputs',
-      document.querySelector('input[name="requirement-type"]:checked'),
+      document.querySelector('input[name="lexicon-type"]:checked'),
     )
 
     setIdAuxiliar(lexicons.length + 1)
 
     const helper = {
       id: idAuxiliar,
-      name: nameInput,
-      type: functionalInput,
-      synonym: whoInput,
-      notion: whatInput,
-      impact: whyInput,
+      name: lexiconName,
+      type: lexiconType,
+      synonym: lexiconSynonym,
+      notion: lexiconNotion,
+      impact: lexiconImpact,
     }
+
     console.log('Lexicons helper', helper)
 
     setLexicons([...lexicons, helper])
+    const newArtifact = artifact
+    newArtifact.lexicons = [...lexicons, helper]
+    props.onChangeArtifactObjectHandler(newArtifact)
     setAddLexiconButton(false)
     setAddLexiconContainer(<></>)
   }
@@ -139,14 +144,14 @@ export function LexiconsList(props: any) {
           marginTop: '50px',
         }}
       >
-        {lexicons.length > 0 ? (
-          lexicons.map((lexicon: ILexiconItem) => {
+        {artifact.lexicons != null && artifact.lexicons.length > 0 ? (
+          artifact.lexicons.map((lexicon: ILexiconItem) => {
             return (
               <>
                 <LexiconItem
+                  key={lexicon.id}
                   onlyShow={props.artifact.done}
                   lexicon={lexicon}
-                  lexiconState={props.lexiconState}
                 />
               </>
             )
